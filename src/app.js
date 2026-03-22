@@ -47,6 +47,27 @@ app.get('/movies/:id', (req, res) => {
     res.status(200).json(movie);
 });
 
+app.post('/movies', (req, res) => {
+    const { title, director } = req.body;
+
+    if (!title || !director) {
+        return res.status(400).json({
+            error: 'Los campos title y director son obligatorios'
+        });
+    }
+
+    const newMovie = {
+        id: movies.length > 0 ? movies[movies.length - 1].id + 1 : 1,
+        title,
+        director
+    };
+
+    movies.push(newMovie);
+
+    res.status(201).json(newMovie);
+});
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
 
 module.exports = app;
+

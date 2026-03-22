@@ -71,3 +71,57 @@ test('GET /movies/99 debe devolver un mensaje de error', async () => {
         error: 'Película no encontrada'
     });
 });
+
+test('POST /movies debe responder 201 cuando los datos son válidos', async () => {
+    const response = await request(app)
+        .post('/movies')
+        .send({
+            title: 'The Prestige',
+            director: 'Christopher Nolan'
+        });
+
+    assert.equal(response.statusCode, 201);
+});
+
+test('POST /movies debe devolver la película creada', async () => {
+    const response = await request(app)
+        .post('/movies')
+        .send({
+            title: 'Dunkirk',
+            director: 'Christopher Nolan'
+        });
+
+    assert.equal(typeof response.body.id, 'number');
+    assert.equal(response.body.title, 'Dunkirk');
+    assert.equal(response.body.director, 'Christopher Nolan');
+});
+
+test('POST /movies debe responder 400 si falta title', async () => {
+    const response = await request(app)
+        .post('/movies')
+        .send({
+            director: 'Christopher Nolan'
+        });
+
+    assert.equal(response.statusCode, 400);
+});
+
+test('POST /movies debe responder 400 si falta director', async () => {
+    const response = await request(app)
+        .post('/movies')
+        .send({
+            title: 'Memento'
+        });
+
+    assert.equal(response.statusCode, 400);
+});
+
+test('POST /movies debe devolver mensaje de error si faltan campos obligatorios', async () => {
+    const response = await request(app)
+        .post('/movies')
+        .send({});
+
+    assert.deepEqual(response.body, {
+        error: 'Los campos title y director son obligatorios'
+    });
+});

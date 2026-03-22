@@ -44,6 +44,53 @@ paths:
                       type: string
                       example: Christopher Nolan
 
+    post:
+      summary: Crea una nueva película
+      description: Añade una nueva película a la colección
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - director
+              properties:
+                title:
+                  type: string
+                  example: The Prestige
+                director:
+                  type: string
+                  example: Christopher Nolan
+      responses:
+        '201':
+          description: Película creada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 3
+                  title:
+                    type: string
+                    example: The Prestige
+                  director:
+                    type: string
+                    example: Christopher Nolan
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Los campos title y director son obligatorios
+
   /movies/{id}:
     get:
       summary: Obtiene una película por su identificador
