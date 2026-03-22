@@ -19,3 +19,27 @@ paths:
                   message:
                     type: string
                     example: API funcionando correctamente
+
+  /movies:
+    get:
+      summary: Obtiene la lista de películas
+      description: Devuelve un array con las películas disponibles
+      responses:
+        '200':
+          description: Lista de películas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: Inception
+                    director:
+                      type: string
+                      example: Christopher Nolan
