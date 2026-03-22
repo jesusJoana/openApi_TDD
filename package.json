@@ -1,0 +1,21 @@
+{
+  "name": "openapi-node-rest",
+  "version": "1.0.0",
+  "description": "Proyecto de aprendizaje de APIs REST con OpenAPI, Node.js y TDD",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
