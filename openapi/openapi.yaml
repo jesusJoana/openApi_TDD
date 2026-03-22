@@ -43,3 +43,43 @@ paths:
                     director:
                       type: string
                       example: Christopher Nolan
+
+  /movies/{id}:
+    get:
+      summary: Obtiene una película por su identificador
+      description: Devuelve una película concreta a partir de su id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador de la película
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Película encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: Inception
+                  director:
+                    type: string
+                    example: Christopher Nolan
+        '404':
+          description: Película no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Película no encontrada

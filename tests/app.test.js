@@ -44,3 +44,30 @@ test('GET /movies debe devolver películas con id, title y director', async () =
     assert.equal(typeof response.body[0].director, 'string');
 });
 
+test('GET /movies/1 debe responder 200', async () => {
+    const response = await request(app).get('/movies/1');
+    assert.equal(response.statusCode, 200);
+});
+
+test('GET /movies/1 debe devolver una película', async () => {
+    const response = await request(app).get('/movies/1');
+
+    assert.deepEqual(response.body, {
+        id: 1,
+        title: 'Inception',
+        director: 'Christopher Nolan'
+    });
+});
+
+test('GET /movies/99 debe responder 404', async () => {
+    const response = await request(app).get('/movies/99');
+    assert.equal(response.statusCode, 404);
+});
+
+test('GET /movies/99 debe devolver un mensaje de error', async () => {
+    const response = await request(app).get('/movies/99');
+
+    assert.deepEqual(response.body, {
+        error: 'Película no encontrada'
+    });
+});
